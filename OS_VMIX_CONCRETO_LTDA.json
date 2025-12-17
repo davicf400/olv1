@@ -1,0 +1,91 @@
+{
+    "cabecalho": {
+        "cliente": "VMIX CONCRETO LTDA",
+        "obra": "VMIX CONCRETO",
+        "local": "RONDONÓPOLIS-MT"
+    },
+    "insumos": {
+        "cimento": {
+            "tipo": "CP II F 40",
+            "fabricante": "Votorantim",
+            "origem": "Cuiabá-MT"
+        },
+        "agregado_miudo": {
+            "tipo": "Areia Natural do Rio Cuiabá",
+            "origem": "Cuiabá - MT"
+        },
+        "agregado_graudo": {
+            "tipo": "Brita 1",
+            "origem": "Cuiabá-MT"
+        },
+        "aditivo": {
+            "identificacao": "Não Encontrado",
+            "fabricante": "Não Encontrado",
+            "teor": "Densidade"
+        },
+        "adicao": {
+            "identificacao": "Não Encontrado",
+            "fabricante": "Não Encontrado",
+            "teor": "Densidade"
+        }
+    },
+    "escopo": {
+        "slump": 120,
+        "idade": 28,
+        "tipo de cp": "10x20 Axial",
+        "inicial agregados graudos": 20
+    },
+    "fase plastica": {
+        "dados": [
+            {
+                "identificador": "Traço A: m = 3",
+                "alpha": 0.51,
+                "agua": 3.48,
+                "Slump(mm)": 200.0,
+                "Peso(kg)": 19.58
+            },
+            {
+                "identificador": "Traço B: m = 4",
+                "alpha": 0.51,
+                "agua": 3.5,
+                "Slump(mm)": 200.0,
+                "Peso(kg)": 19.58
+            },
+            {
+                "identificador": "Traço A: m = 5",
+                "alpha": 0.51,
+                "agua": 3.44,
+                "Slump(mm)": 200.0,
+                "Peso(kg)": 19.58
+            },
+            {
+                "identificador": "Traço A: m = 6",
+                "alpha": 0.51,
+                "agua": 3.5,
+                "Slump(mm)": 200.0,
+                "Peso(kg)": 19.58
+            },
+            {
+                "identificador": "Traço A: m = 7",
+                "alpha": 0.51,
+                "agua": 3.49,
+                "Slump(mm)": 200.0,
+                "Peso(kg)": 19.58
+            },
+            {
+                "identificador": "Traço A: m = 8",
+                "alpha": 0.51,
+                "agua": 3.5,
+                "Slump(mm)": 200.0,
+                "Peso(kg)": 19.58
+            },
+            {
+                "identificador": "Traço A: m = 9",
+                "alpha": 0.51,
+                "agua": 3.58,
+                "Slump(mm)": 100.0,
+                "Peso(kg)": 19.58
+            }
+        ]
+    }
+}
