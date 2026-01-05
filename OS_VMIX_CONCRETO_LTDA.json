@@ -1,10 +1,10 @@
 {
-    "cabecalho": {
+    "cadastro cliente": {
         "cliente": "VMIX CONCRETO LTDA",
         "obra": "VMIX CONCRETO",
         "local": "RONDONÓPOLIS-MT"
     },
-    "insumos": {
+    " cadastro de insumos": {
         "cimento": {
             "tipo": "CP II F 40",
             "fabricante": "Votorantim",

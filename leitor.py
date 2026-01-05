@@ -21,6 +21,7 @@ def registro():
         planilha = pd.ExcelFile('Estudos de Dosagem de Concreto 2025.xlsx')
         
         df_c = planilha.parse('Cadastro de Cliente').fillna(0)
+        
         cliente = buscar_valor_no_df(df_c, "Cliente")
         obra = buscar_valor_no_df(df_c, "Obra")
         local = buscar_valor_no_df(df_c, "Local")
@@ -39,7 +40,7 @@ def registro():
                 return buscar_valor_no_df(fatia, label_item)
             return "Seção não encontrada"
 
-        insumos = {
+        cadastro_insumos= {
             "cimento": {
                 "tipo": buscar_na_secao_flexivel("Cimento", "Tipo"),
                 "fabricante": buscar_na_secao_flexivel("Cimento", "Fabricante"),
@@ -86,8 +87,8 @@ def registro():
                 tracos.append(dados_traco)
 
         return {
-            "cabecalho": {"cliente": cliente, "obra": obra, "local": local},
-            "insumos": insumos,
+            "cadastro cliente": {"cliente": cliente, "obra": obra, "local": local},
+            " cadastro de insumos": cadastro_insumos,
             "escopo": {"slump": slump, "idade": idade, "tipo de cp": tipocp, "inicial agregados graudos": inicial},
             "fase plastica": {"dados": tracos}
         }
@@ -98,7 +99,7 @@ def registro():
 
 dados_os = registro()
 if dados_os:
-    nome_arquivo = f"OS_{str(dados_os['cabecalho']['cliente']).replace(' ', '_')}.json"
+    nome_arquivo = f"OS_{str(dados_os['cadastro cliente']['cliente']).replace(' ', '_')}.json"
     with open(nome_arquivo, "w", encoding="utf-8") as f:
         json.dump(dados_os, f, indent=4, ensure_ascii=False)
     print(f"Sucesso: {nome_arquivo} gerado.")

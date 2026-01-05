@@ -1,0 +1,11 @@
+# Pastas do Python
+__pycache__/
+*.pyc
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Arquivos de dados (opcional: se não quiser subir seu Excel ou JSONs de teste)
+*.json
+*.xlsx
