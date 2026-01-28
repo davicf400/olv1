@@ -85,17 +85,17 @@ if __name__ == "__main__":
     meu_x = [0.34104, 0.42875, 0.50568, 0.60025, 0.68404, 0.77175, 0.8771]
     meu_y = [3, 4, 5, 6, 7, 8, 9]
 
-    # 2. Cria o objeto Solver
+    # 2. 
     solver = InterpoladorCramer(meu_x, meu_y)
     
-    # 3. Força o cálculo inicial para preencher as variáveis internas
+    # 3. 
     coefs = solver.resolver_coeficientes()
-    dets = solver.determinantes # Acessa o dicionário que foi preenchido acima
+    dets = solver.determinantes 
 
     # --- PRINT 1: DETERMINANTES ---
     print("\n=== 1. DETERMINANTES (Notação Científica) ===")
     df_dets = pd.DataFrame([dets])
-    # Usamos %.4e para notação científica, senão aparece tudo 0.0000
+    
     print(df_dets.to_string(index=False, float_format="%.4e"))
 
     # --- PRINT 2: COEFICIENTES DA EQUAÇÃO ---
