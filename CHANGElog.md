@@ -1,3 +1,56 @@
+🚀 Release Notes v1.2.0: Integração ERP, API REST e Precisão Numérica Avançada
+Data: 04 de Março de 2026
+Status: Versão Estável (v1.2)
+
+📝 Visão Geral
+A versão v1.2.0 representa o maior salto arquitetônico do projeto até agora. O sistema deixa de ser um script isolado e se transforma em uma API RESTful conectada diretamente a um ecossistema ERP empresarial (Odoo). Além da comunicação em nuvem, o motor matemático foi refatorado para operar com o máximo rigor acadêmico exigido em projetos de engenharia, garantindo a visualização de todas as etapas de cálculo.
+
+🏗 Arquitetura do Sistema (Atualizada)
+A arquitetura foi expandida e agora conta com 6 módulos principais, introduzindo a camada de comunicação e serviços web:
+
+5. 🌐 A API (Serviço Web) [NOVO]
+Implementação de um servidor assíncrono utilizando FastAPI para transformar o motor em um microsserviço.
+
+Rotas REST: Criação dos endpoints /upload-planilha (para ingestão de arquivos Excel) e /novo-formulario (para receber dados em formato JSON nativo).
+
+6. 🔌 O Conector ERP (Odoo Integration) [NOVO]
+Módulo dedicado à comunicação com o banco de dados do Odoo ERP via protocolo JSON-RPC.
+
+Autenticação Segura: Login via API e obtenção de UID de sessão.
+
+Criação de Registros: Inserção autônoma de dados na tabela customizada x_concretotec.
+
+Anexos Base64: O PDF gerado pelo Relator é codificado em Base64 e anexado automaticamente ao registro da OS correspondente no Odoo.
+
+✨ Changelog (Mudanças Recentes)
+🌟 Funcionalidades (Features)
+[x] Comunicação Odoo ERP: O sistema agora cria as Ordens de Serviço (OS) diretamente no banco de dados e atrela o PDF final ao registro (x_relatorio).
+
+[x] Dump Acadêmico Completo: O PDF agora atua como uma "Caixa Preta" transparente para auditoria, imprimindo a Matriz Principal 7x7 (em notação científica), os determinantes do sistema, e uma tabela projetada com exatos 51 pontos equidistantes da curva.
+
+[x] Execução CLI Híbrida: Adicionado gatilho de execução local (if __name__ == "__main__":) no main.py, permitindo rodar e debugar o sistema direto no terminal, gerando o PDF localmente sem a necessidade de instanciar o servidor web.
+
+[x] Segurança de Credenciais: Implementação de regras de .gitignore para proteger dados sensíveis de servidor, acompanhado de um odooconectar_exemplo.py para versionamento público seguro.
+
+⚙️ Melhorias Técnicas (Refatoração)
+[x] Precisão de Engenharia (14 Casas Decimais): O cerebro.py e o relatorio.py foram reescritos para travar a precisão flutuante. O sistema agora não arredonda cálculos intermediários e formata a saída em string (:.14f), garantindo o rigor exigido nos relatórios da UFMT.
+
+[x] Reestilização do Gráfico: Atualização do matplotlib para o estilo bmh, incluindo preenchimento de área sob a curva (fill_between) e maior contraste nos pontos experimentais reais.
+
+🛠 Stack Tecnológico Atualizado
+Core: Python
+
+API & Web: FastAPI, Uvicorn, JSON-RPC
+
+Dados & Matemática: Pandas, NumPy (float64 precision)
+
+Relatórios & Gráficos: FPDF2, Matplotlib
+
+ERP: Odoo
+
+
+
+
 # 🚀 Release Notes v1.1.0: Relatórios Técnicos e Visualização Gráfica
 
 **Data:** 11 de Fevereiro de 2026
