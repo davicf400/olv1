@@ -70,8 +70,12 @@ class InterpoladorCramer:
         lista_resultados = []
         for x_val, y_real in zip(self.x, self.y):
             y_calc = self._calcular_polinomio(x_val)
+            diferenca = y_calc - y_real
             lista_resultados.append({
-                'a/c (x)': x_val, 'm Real': y_real, 'm Calculado': y_calc, 'Diferença': y_calc - y_real
+                'a/c (x)': f"{x_val:.14f}", 
+                'm Real': f"{y_real:.14f}", 
+                'm Calculado': f"{y_calc:.14f}", 
+                'Diferença': f"{diferenca:.14f}"
             })
         return pd.DataFrame(lista_resultados)
 
@@ -81,5 +85,8 @@ class InterpoladorCramer:
         lista_curva = []
         for x_step in eixo_x_suave:
             y_smooth = self._calcular_polinomio(x_step)
-            lista_curva.append({'a/c (Interpolado)': x_step, 'm (Curva)': y_smooth})
+            lista_curva.append({
+                'a/c (Interpolado)': f"{x_step:.14f}", 
+                'm (Curva)': f"{y_smooth:.14f}"
+            })
         return pd.DataFrame(lista_curva)

@@ -64,3 +64,5 @@ def registro():
     except Exception as e:
         print(f"ERRO DE EXTRAÇÃO: {e}")
         return None
+    
+ 

@@ -1,11 +1,30 @@
-# Pastas do Python
-__pycache__/
-*.pyc
 
-# Ambiente virtual
+
+odooconectar.py
+.env
+secrets.json
+
+
 .venv/
 venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# Arquivos de dados (opcional: se não quiser subir seu Excel ou JSONs de teste)
-*.json
+# ==========================================
+*.pdf
+OS_*.pdf
+
+
+*.png
+temp_grafico_dosagem.png
+
+
 *.xlsx
+*.csv
+
+
+.DS_Store
+Thumbs.db
