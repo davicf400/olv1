@@ -30,11 +30,27 @@ class CalculoFasePlastica:
         agua_dec = Decimal(str(agua))
         if m_dec < 3 or c == 0: return Decimal(0)
         return agua_dec / c
+    
+    def indice_eficiencia(self, consumo, resistencia):
+        cons_dec = Decimal(str(consumo))
+        res_dec = Decimal(str(resistencia))
+        if res_dec == 0: return Decimal(0)
+        return cons_dec / res_dec
+
 
 class InterpoladorCramer:
-    def __init__(self, dados_x, dados_y):
-        self.x = np.array(dados_x, dtype=float)
-        self.y = np.array(dados_y, dtype=float)
+   
+    def __init__(self, dados_x, dados_y, nome_x="Eixo X", nome_y="Eixo Y"):
+        x_bruto = np.array(dados_x, dtype=float)
+        y_bruto = np.array(dados_y, dtype=float)
+        
+        # GARANTIA DE ORDENAÇÃO: Impede que o gráfico vire um rabisco se os dados vierem bagunçados
+        indices_ordenados = np.argsort(x_bruto)
+        self.x = x_bruto[indices_ordenados]
+        self.y = y_bruto[indices_ordenados]
+        
+        self.nome_x = nome_x
+        self.nome_y = nome_y
         self.coeficientes = {}
         self.determinantes = {}
         self.matriz_principal = None
@@ -44,11 +60,13 @@ class InterpoladorCramer:
         self.matriz_principal = np.power(self.x[:, None], expoentes)
         self.determinantes['D_principal'] = np.linalg.det(self.matriz_principal)
         
+        self.matrizes_auxiliares = {} 
         for i in range(7):
             m_temp = self.matriz_principal.copy()
             m_temp[:, i] = self.y
+            self.matrizes_auxiliares[f'M_col_{i+1}'] = m_temp 
             self.determinantes[f'D_col_{i+1}'] = np.linalg.det(m_temp)
-            
+
     def resolver_coeficientes(self):
         if not self.determinantes: self._calcular_determinantes()
         d_main = self.determinantes['D_principal']
@@ -71,22 +89,24 @@ class InterpoladorCramer:
         for x_val, y_real in zip(self.x, self.y):
             y_calc = self._calcular_polinomio(x_val)
             diferenca = y_calc - y_real
+           
             lista_resultados.append({
-                'a/c (x)': f"{x_val:.14f}", 
-                'm Real': f"{y_real:.14f}", 
-                'm Calculado': f"{y_calc:.14f}", 
+                f'{self.nome_x} (Real)': f"{x_val:.14f}", 
+                f'{self.nome_y} (Real)': f"{y_real:.14f}", 
+                f'{self.nome_y} (Calculado)': f"{y_calc:.14f}", 
                 'Diferença': f"{diferenca:.14f}"
             })
         return pd.DataFrame(lista_resultados)
 
-    def gerar_curva(self, num_pontos=50):
+    def gerar_curva(self, num_pontos=51):
         if not self.coeficientes: self.resolver_coeficientes()
         eixo_x_suave = np.linspace(self.x.min(), self.x.max(), num_pontos)
         lista_curva = []
         for x_step in eixo_x_suave:
             y_smooth = self._calcular_polinomio(x_step)
+            
             lista_curva.append({
-                'a/c (Interpolado)': f"{x_step:.14f}", 
-                'm (Curva)': f"{y_smooth:.14f}"
+                f'{self.nome_x} (Interpolado)': f"{x_step:.14f}", 
+                f'{self.nome_y} (Curva)': f"{y_smooth:.14f}"
             })
         return pd.DataFrame(lista_curva)

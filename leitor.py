@@ -24,8 +24,29 @@ def registro():
         df_c = planilha.parse('Cadastro de Cliente').fillna(0)
         df_e = planilha.parse('Escopo de Estudo').fillna(0)
         df_p = planilha.parse('Dados - Fase Plástica').fillna(0)
+        
+       
+        df_r = planilha.parse('Dados - Resistências').fillna(0)
 
-        # Extração
+        
+        resistencias_dict = {}
+        
+        for idx, row in df_r.iterrows():
+            try:
+               
+                m_val_res = float(row.iloc[2])
+                idade = float(row.iloc[4])
+                
+              
+                if idade == 28.0:
+                    resistencias_dict[m_val_res] = {
+                        "resistencia": float(row.iloc[8]),
+                        "indice_eficiencia": float(row.iloc[9])
+                    }
+            except:
+                continue 
+
+        
         dados = {
             "cliente_info": {
                 "nome": buscar_valor_no_df(df_c, "Cliente"),
@@ -39,7 +60,7 @@ def registro():
             "dados_fase_plastica": []
         }
 
-        # Extração dos Traços
+        # 3. EXTRAÇÃO DOS TRAÇOS (Unindo Fase Plástica com Resistência)
         for i, row in df_p.iterrows():
             txt_celula = str(row.iloc[0]).lower()
             if "m =" in txt_celula:
@@ -48,12 +69,17 @@ def registro():
                 except:
                     valor_m = 0.0
                 
+                
+                dados_res = resistencias_dict.get(valor_m, {"resistencia": 0.0, "indice_eficiencia": 0.0})
+                
                 dados["dados_fase_plastica"].append({
                     "m": valor_m,
                     "alpha": float(df_p.iloc[i+1, 1]),
                     "agua": float(df_p.iloc[i+1, 3]),
                     "slump_medido": df_p.iloc[i+1, 5],
-                    "consumo_estimado": df_p.iloc[i+1, 7]
+                    "consumo_estimado": float(df_p.iloc[i+1, 7]),
+                    "resistencia": dados_res["resistencia"],             # DADO NOVO
+                    "indice_eficiencia": dados_res["indice_eficiencia"]  # DADO NOVO
                 })
 
         return dados
@@ -64,5 +90,3 @@ def registro():
     except Exception as e:
         print(f"ERRO DE EXTRAÇÃO: {e}")
         return None
-    
- 
