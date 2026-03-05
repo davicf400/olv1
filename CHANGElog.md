@@ -1,3 +1,20 @@
+
+🚀 Release Notes v1.3.0: Motor Multi-Variáveis e Dump Acadêmico (40+ Páginas)
+Data: 05 de Março de 2026Status: Versão Estável (v1.3)📝 
+Visão Geral
+A versão v1.3.0 marca a transição definitiva da dependência do Excel para o Python. O motor matemático foi abstraído para processar cruzamentos dinâmicos de quaisquer variáveis da Fase Plástica, gerando estudos paralelos simultâneos. O módulo de relatórios sofreu um upgrade massivo, passando a gerar um "Dump" completo de dezenas de páginas com a memória de cálculo minuciosa de cada matriz e determinante.
+✨ Changelog (Mudanças Recentes)
+Funcionalidades (Features)[x] Motor Cego e Dinâmico: Refatoração da classe InterpoladorCramer (cerebro.py) para receber chaves universais (X, Y) com ordenação de eixos automática, permitindo cruzar qualquer parâmetro ($a/c \times m$, $m \times Consumo$, etc.) sem reescrever a lógica matricial.[x] 
+
+Cálculo Nativo de Indicadores: Implementada a função indice_eficiencia direto na classe CalculoFasePlastica. O Python agora calcula a relação Consumo/Resistência em tempo real com alta precisão, abandonando as células pré-calculadas da planilha.[x] Loop de Orquestração: O main.py agora processa uma lista de "Análises Solicitadas", executando o motor de Cramer múltiplas vezes no mesmo ciclo de processamento (Batch Processing).[x] Relatório PDF de Alta Densidade (Dump): O relatorio.py foi reescrito para gerar documentos extensos (40+ páginas). Agora ele documenta cada cruzamento individualmente, imprimindo: a Matriz Principal, as 7 Matrizes Auxiliares (Vetor Y substituído), Tabela de Validação, Gráfico e Equação.
+
+🐛 Correções (Bug Fixes)[x]
+Zeros Ilusórios (Underflow de Impressão): Correção de um bug visual no PDF onde determinantes de alta ordem (ex: $a/c^6$) apareciam como zero. Implementada a formatação em Notação Científica de alta precisão (:.14e) nas tabelas do fpdf2, revelando os valores microscópicos e batendo 100% com os cálculos de software de terceiros (Excel/Calc).
+
+
+
+
+
 🚀 Release Notes v1.2.0: Integração ERP, API REST e Precisão Numérica Avançada
 Data: 04 de Março de 2026
 Status: Versão Estável (v1.2)
