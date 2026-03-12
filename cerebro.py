@@ -110,3 +110,20 @@ class InterpoladorCramer:
                 f'{self.nome_y} (Curva)': f"{y_smooth:.14f}"
             })
         return pd.DataFrame(lista_curva)
+    
+    def calcular_r2(self):
+      
+        if not self.coeficientes: self.resolver_coeficientes()
+        
+        
+        y_calc = np.array([self._calcular_polinomio(x) for x in self.x])
+        
+      
+        ss_res = np.sum((self.y - y_calc) ** 2) 
+        ss_tot = np.sum((self.y - np.mean(self.y)) ** 2) 
+        
+        if ss_tot == 0:
+            return 1.0
+        
+        r2 = 1 - (ss_res / ss_tot)
+        return r2

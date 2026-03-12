@@ -4,7 +4,8 @@ from fastapi import FastAPI, UploadFile, File
 from leitor import registro
 from cerebro import CalculoFasePlastica, InterpoladorCramer
 from relatorio import GeradorRelatorio
-# from odooconectar import OdooConnector
+from odooconectar import OdooConnector
+# from grafico_web import DashboardInterativo
 
 app = FastAPI(title="Motor de Dosagem VMIX API", version="1.2")
 
@@ -75,7 +76,8 @@ def executar_motor_matematico(dados_json):
                 "pontos_reais_x": solver.x,
                 "pontos_reais_y": solver.y,
                 "nome_x": analise["nome_x"],
-                "nome_y": analise["nome_y"]
+                "nome_y": analise["nome_y"],
+                "r2": solver.calcular_r2()
             })
 
         print(f"\n>>> SUCESSO! {len(resultados_finais)} MOTORES MATEMÁTICOS EXECUTADOS! <<<")
@@ -86,6 +88,26 @@ def executar_motor_matematico(dados_json):
         print("\n GERANDO PDF MASSIVO COM TODAS AS MATRIZES E GRÁFICOS... ")
         gerador = GeradorRelatorio(dados_json)
         gerador.gerar_pdf(resultados_finais)
+
+
+    # ======================================================================
+        # GERANDO O DASHBOARD WEB INTERATIVO
+        #print("\n GERANDO DASHBOARD HTML (PLOTLY)... ")
+        #nome_cliente = dados_json['cliente_info'].get('nome', 'Cliente')
+        #dash = DashboardInterativo(nome_cliente)
+        #nome_arquivo_html = "Dashboard_Interativo.html"
+        #dash.gerar_html(resultados_finais, nome_arquivo_html)
+        # ======================================================================
+
+
+    # ======================================================================
+     # ENVIANDO PARA O ERP ODOO
+        print("\n INICIANDO SINCRONIZAÇÃO COM O ODOO ERP... ")
+        nome_arquivo_pdf = "OS_VMIX_CONCRETO_LTDA_COMPLETO.pdf"
+
+        odoo = OdooConnector()
+        odoo.enviar_estudo(dados_json, nome_arquivo_pdf)
+     # ======================================================================
         
 
         return {
